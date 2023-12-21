@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\BlogAccessLog;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function (Request $request) {
+    BlogAccessLog::create([
+        'url' => $request->getUri(),
+        'session_id' => $request->session()->getId(),
+        'ip_address' => $request->ip(),
+        'path' => $request->path(),
+    ]);
+
+    return response()->json('ok');
 });
