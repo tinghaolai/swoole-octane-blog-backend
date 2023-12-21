@@ -24,6 +24,7 @@ services:
         depends_on:
             - mysql
         command: [ "php", "artisan", "octane:start", "--watch", "--host", "0.0.0.0" ]
+        tty: true
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
