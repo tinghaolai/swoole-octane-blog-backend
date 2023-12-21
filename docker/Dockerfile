@@ -60,4 +60,7 @@ RUN chmod +x /usr/local/bin/start-container
 
 EXPOSE 8000
 
+RUN pecl install swoole
+RUN npm install --save-dev chokidar
+
 ENTRYPOINT ["start-container"]
