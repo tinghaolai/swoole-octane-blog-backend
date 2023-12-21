@@ -1,3 +1,7 @@
+### About
+
+Use `swoole` for this `octane` project.
+
 ### Develop
 
 * `make build`
