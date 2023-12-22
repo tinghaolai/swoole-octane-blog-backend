@@ -19,12 +19,14 @@ Route::get('/', function (Request $request) {
     $referer = $request->input('url');
     $refererPath = parse_url($referer, PHP_URL_PATH);
 
-    BlogAccessLog::create([
+    $log = BlogAccessLog::create([
         'url' => $referer ?? '',
         'session_id' => $request->session()->getId(),
         'ip_address' => $request->ip(),
         'path' => $refererPath,
     ]);
 
-    return response()->json(['message' => 'ok']);
+    return response()->json([
+        'total' => $log->id,
+    ]);
 });
