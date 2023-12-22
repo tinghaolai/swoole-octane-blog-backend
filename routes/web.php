@@ -16,12 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function (Request $request) {
+    $referer = $request->input('url');
+    $refererPath = parse_url($referer, PHP_URL_PATH);
+
     BlogAccessLog::create([
-        'url' => $request->getUri(),
+        'url' => $referer ?? '',
         'session_id' => $request->session()->getId(),
         'ip_address' => $request->ip(),
-        'path' => $request->path(),
+        'path' => $refererPath,
     ]);
 
-    return response()->json('ok');
+    return response()->json(['message' => 'ok']);
 });
