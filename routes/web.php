@@ -30,3 +30,16 @@ Route::get('/', function (Request $request) {
         'total' => $log->id,
     ]);
 });
+
+Route::get('/count', function (Request $request) {
+    $referer = $request->input('url');
+    $refererPath = parse_url($referer, PHP_URL_PATH);
+
+    $pathCount = BlogAccessLog::where('path', $refererPath)->count();
+    $todayCount = BlogAccessLog::whereDate('created_at', today())->count();
+
+    return response()->json([
+        'pathCount' => $pathCount,
+        'todayCount' => $todayCount,
+    ]);
+});
