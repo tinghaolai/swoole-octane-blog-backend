@@ -4,6 +4,10 @@ serve:
 	@echo "Starting the octane server..."
 	@./vendor/bin/sail artisan octane:start --watch --host 0.0.0.0
 
+server:
+	@echo "Starting the octane server..."
+	@./vendor/bin/sail artisan octane:start --watch --host 0.0.0.0 &
+
 build-images:
 	@echo "Building images..."
 	@./vendor/bin/sail build
