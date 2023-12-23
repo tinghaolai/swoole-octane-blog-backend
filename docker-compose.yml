@@ -48,6 +48,15 @@ services:
                 - '-p${DB_PASSWORD}'
             retries: 3
             timeout: 5s
+    nginx:
+        image: nginx
+        ports:
+            - '${NGINX_PORT:-8080}:443'
+        volumes:
+            - ./docker/nginx.conf:/etc/nginx/nginx.conf
+            - ./docker:/var/www/html
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge
